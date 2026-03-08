@@ -5,6 +5,7 @@ using UnityEngine.SocialPlatforms.Impl;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    public Spawner spawner;
     int score = 0;
 
     private void Awake()
@@ -21,5 +22,6 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         Debug.Log("GameOver");
+        spawner.CancelInvoke();
     }
 }
