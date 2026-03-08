@@ -6,12 +6,6 @@ public class WordButton : MonoBehaviour
     public bool isCorrect;
     public Spawner.spawnPointData spawnPoint;
 
-
-    private void Start()
-    {
-        StartCoroutine(AutoDestroy());
-    }
-
     public void OnClick()
     {
         if(isCorrect)
@@ -26,9 +20,14 @@ public class WordButton : MonoBehaviour
         Destroy(gameObject);    
     }
 
-    IEnumerator AutoDestroy()
+    public void StartAutoDestroy(float lifetime)
     {
-        yield return new WaitForSeconds(2f);
+        StartCoroutine(AutoDestroy(lifetime));
+    }
+
+    IEnumerator AutoDestroy(float lifeTime)
+    {
+        yield return new WaitForSeconds(lifeTime);
         spawnPoint.used = false;
         Destroy(gameObject);
     }

@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public Spawner spawner;
     int score = 0;
+    public TMPro.TMP_Text scoreText;
 
     private void Awake()
     {
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour
     public void AddScore()
     {
         score++;
+        scoreText.text = score.ToString();
         Debug.Log(score);
     }
 
