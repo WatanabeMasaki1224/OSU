@@ -86,5 +86,11 @@ public class Spawner : MonoBehaviour
         wb.StartAutoDestroy(lifetime);
     }
 
-
+    public void WordDerete()
+    {
+        foreach (Transform child in parent)
+        {
+            Destroy(child.gameObject);
+        }
+    }
 }

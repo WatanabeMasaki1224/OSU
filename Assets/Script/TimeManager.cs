@@ -9,6 +9,7 @@ public class TimeManager : MonoBehaviour
     float currentTime;
     public event Action OntimeEnd;
     public TMP_Text timeText;
+    bool ended = false; 
 
     void Awake()
     {
@@ -21,8 +22,9 @@ public class TimeManager : MonoBehaviour
     {
         currentTime -= Time.deltaTime;
         timeText.text = Mathf.Ceil(currentTime).ToString();
-        if (currentTime <= 0)
+        if (!ended && currentTime <= 0)
         {
+            ended = true;
             currentTime = 0;
             OntimeEnd?.Invoke();
         }
@@ -31,5 +33,13 @@ public class TimeManager : MonoBehaviour
     public float GetTime()
     {
         return currentTime;
+    }
+
+    public void ResetTimer()
+    {
+        currentTime = gameTime;
+        ended = false;
+        if(timeText != null) 
+            timeText.text = Mathf.Ceil(currentTime).ToString();
     }
 }

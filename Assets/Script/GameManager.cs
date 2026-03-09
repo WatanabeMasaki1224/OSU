@@ -1,18 +1,32 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public Spawner spawner;
-    int score = 0;
+    public int score = 0;
     public TMPro.TMP_Text scoreText;
+    public string lastWord;
+    public GameObject gameOverUI;
+    public GameObject gameClearUI;
 
-    private void Awake()
+    private void Start()
     {
-        instance = this;
+        if(instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+            TimeManager.instance.OntimeEnd += GameClear;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
+
 
     public void AddScore()
     {
@@ -21,9 +35,39 @@ public class GameManager : MonoBehaviour
         Debug.Log(score);
     }
 
-    public void GameOver()
+    public void GameOver(string word)
     {
         Debug.Log("GameOver");
-        spawner.CancelInvoke();
+        lastWord = word;
+        FindAnyObjectByType<Spawner>().CancelInvoke();
+        FindAnyObjectByType<Spawner>().WordDerete();
+        if (gameOverUI != null)
+            gameOverUI.SetActive(true);
+        StartCoroutine(GoResult());
+        Debug.Log("GameOver");
+    }
+
+    public void GameClear()
+    {
+        FindAnyObjectByType<Spawner>().CancelInvoke();
+        FindAnyObjectByType<Spawner>().WordDerete() ;
+        if(gameClearUI != null) 
+            gameClearUI.SetActive(true);
+        StartCoroutine (GoResult());
+        Debug.Log("GameClear");
+    }
+
+    IEnumerator GoResult()
+    {
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene("Result");
+    }
+
+    public void ResetGame()
+    {
+        score = 0;
+        if (scoreText != null)
+            scoreText.text = score.ToString();
+        lastWord = "";
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using TMPro;
 
 public class WordButton : MonoBehaviour
 {
@@ -14,7 +15,8 @@ public class WordButton : MonoBehaviour
         }
         else
         {
-            GameManager.instance.GameOver();
+            string word = GetComponentInChildren<TMP_Text>().text;
+            GameManager.instance.GameOver(word);
         }
         spawnPoint.used = false;
         Destroy(gameObject);    
