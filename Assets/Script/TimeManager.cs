@@ -22,7 +22,7 @@ public class TimeManager : MonoBehaviour
     {
         currentTime -= Time.deltaTime;
         if(timeText != null ) 
-            timeText.text = Mathf.Ceil(currentTime).ToString();
+            timeText.text = "タイム：" + Mathf.Ceil(currentTime).ToString();
         if (!ended && currentTime <= 0)
         {
             ended = true;
@@ -41,6 +41,6 @@ public class TimeManager : MonoBehaviour
         currentTime = gameTime;
         ended = false;
         if(timeText != null) 
-            timeText.text = Mathf.Ceil(currentTime).ToString();
+            timeText.text = "タイム：" + Mathf.Ceil(currentTime).ToString();
     }
 }

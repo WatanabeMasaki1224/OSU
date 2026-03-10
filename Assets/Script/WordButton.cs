@@ -11,10 +11,12 @@ public class WordButton : MonoBehaviour
     {
         if(isCorrect)
         {
+            Audio.instance.PlayTrue();
             GameManager.instance.AddScore();
         }
         else
         {
+            Audio.instance.PlayFalse();
             string word = GetComponentInChildren<TMP_Text>().text;
             GameManager.instance.GameOver(word);
         }

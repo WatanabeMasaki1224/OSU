@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     public void AddScore()
     {
         score++;
-        scoreText.text = score.ToString();
+        scoreText.text ="スコア：" +  score.ToString();
         Debug.Log(score);
     }
 
