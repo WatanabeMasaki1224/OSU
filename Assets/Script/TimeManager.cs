@@ -21,7 +21,8 @@ public class TimeManager : MonoBehaviour
     void Update()
     {
         currentTime -= Time.deltaTime;
-        timeText.text = Mathf.Ceil(currentTime).ToString();
+        if(timeText != null ) 
+            timeText.text = Mathf.Ceil(currentTime).ToString();
         if (!ended && currentTime <= 0)
         {
             ended = true;

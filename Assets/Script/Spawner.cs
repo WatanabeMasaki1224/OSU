@@ -36,6 +36,7 @@ public class Spawner : MonoBehaviour
 
     private void Update()
     {
+        if (TimeManager.instance == null) return;
         float t = TimeManager.instance.GetTime();
         if(!speedUp40 && t <=40f)
         {

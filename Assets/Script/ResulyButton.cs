@@ -22,6 +22,6 @@ public class ResulyButton : MonoBehaviour
         if(TimeManager.instance != null)
             TimeManager.instance.ResetTimer();
 
-        SceneManager.LoadScene("Result");
+        SceneManager.LoadScene("Start");
     }
 }

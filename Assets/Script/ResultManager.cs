@@ -11,7 +11,7 @@ public class ResultManager : MonoBehaviour
 
     private void Start()
     {
-        int score = GameManager.instance.score;
+        int score = PlayerPrefs.GetInt("LastScore", 0);
         scoreText.text = "ÉXÉRÉA:" + score;
         SaveScore(score);
         Ranking();

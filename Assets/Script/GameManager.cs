@@ -15,15 +15,11 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        if(instance == null)
+        instance = this;
+
+        if(TimeManager.instance != null)
         {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
             TimeManager.instance.OntimeEnd += GameClear;
-        }
-        else
-        {
-            Destroy(gameObject);
         }
     }
 
@@ -39,8 +35,12 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("GameOver");
         lastWord = word;
-        FindAnyObjectByType<Spawner>().CancelInvoke();
-        FindAnyObjectByType<Spawner>().WordDerete();
+        Spawner spawner = FindAnyObjectByType<Spawner>();
+        if(spawner != null)
+        {
+            spawner.CancelInvoke();
+            spawner.WordDerete();
+        }
         if (gameOverUI != null)
             gameOverUI.SetActive(true);
         StartCoroutine(GoResult());
@@ -59,6 +59,8 @@ public class GameManager : MonoBehaviour
 
     IEnumerator GoResult()
     {
+        PlayerPrefs.SetInt("LastScore", score);
+        PlayerPrefs.Save();
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene("Result");
     }
